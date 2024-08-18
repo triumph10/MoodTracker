@@ -20,6 +20,7 @@
     height: 150px;
     width:200px;
     background-color: transparent;
+    margin-bottom: 1px;
 }
 
 .logo-a{
@@ -28,23 +29,26 @@
     justify-content: center;
     width: 200px;
     height: 150px;
+    margin-bottom: 1px;
 }
 
 .logo-space{
     width: 200px;
     height:150px;
     background-color: transparent ;
+    margin-bottom: 1px;
 }
 
 .logo{
     height: 150px;
     width: 200px;
+    margin-bottom: 1px;
 }
 
 .top-logo{
     height: 150px;
     width: 200px;
-    margin-bottom: 50px;
+    margin-bottom: 1px;
 }
 
 button{
@@ -54,7 +58,8 @@ button{
     color: white;
     background-color:transparent;
     font-size: 20px;
-    margin-top: 40px;
+    margin-top: 50px;
+    margin-left: 1100px;
 }
 
 /*********************   video page   ************************************/
@@ -231,9 +236,12 @@ button{
     justify-content: space-evenly;
  }
 
+
+
 .box1{
     border: 5px solid white;
-    background-image: url("images/mood.jpg");
+    background-image: url("images/moodtrack.png");
+    background-size: cover;
     height: 380px;
     width: 445px;
     border-radius: 15%;
@@ -245,17 +253,18 @@ button{
     transform: scale(1.1);
 }
 
-#text1{
+.box1 h4{
     color: white;
-    font-size:50px;
-    margin-top: 40px;
+    font-size: 50px;
     margin-left: 20px;
-    text-decoration: none;
+    margin-top: 10px;
 }
+
 
 .box2{
     border: 5px solid white;
-    background-image: url("images/graph.jpg");
+    background-image: url("images/moodgraph.png");
+    background-size: cover;
     height: 380px;
     width: 445px;
     border-radius: 15%;
@@ -267,11 +276,110 @@ button{
     transform: scale(1.1);
 }
 
-#text2{
+.box2 h4{
     color: white;
-    font-size:50px;
-    margin-top: 40px;
+    font-size: 50px;
     margin-left: 20px;
-    text-decoration: none;
+    margin-top: 10px;
 }
 
+
+.main4{
+    width: 100%;
+    height: 50vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.box3{
+    border: 5px solid white;
+    background-image: url("images/chatbot.png");
+    background-size: cover;
+    height: 380px;
+    width: 445px;
+    border-radius: 15%;
+    filter: drop-shadow(0 0 8px white);
+    transition: all 0.5s;  
+}
+.box3:hover{
+    transform: scale(1.1);
+}
+
+.box3 h4{
+    color: white;
+    font-size: 50px;
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+
+.box4{
+    border: 5px solid white;
+    background-image: url("images/selfreflect\ \(1\).png");
+    background-size: cover;
+    height: 380px;
+    width: 445px;
+    border-radius: 15%;
+    filter: drop-shadow(0 0 8px white);
+    transition: all 0.5s;
+}
+.box4:hover{
+    transform: scale(1.1);
+}
+
+.box4 h4{
+    color: white;
+    font-size: 50px;
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+
+/* *****************************************footer****************************************** */
+
+.footer{
+    margin-top: 15%;
+    width: 100%;
+    height: 50vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: black;
+}
+
+.left{
+    width: 300px;
+    height: 300px;
+    background-color: transparent;
+    margin-right: 550px;
+    display: block;
+}
+
+.image{
+    width: 150px;
+    height: 90px;
+    background-color: transparent;
+}
+
+.text{
+    width: 250px;
+    height: 80px;
+    color: white;
+    background-color: transparent;
+    font-size: 25px;
+    margin-top: 20px;
+    text-align: justify;
+    font-family: Inter-Regular, Helvetica Neue, Helvetica, Roboto, Arial, sans-serif;;
+    
+}
+.text h6{
+    margin-bottom: 60px;
+    font-family: Inter-Regular, Helvetica Neue, Helvetica, Roboto, Arial, sans-serif;;
+}
+
+.content{
+    width: 300px;
+    height: 300px;
+    background-color: red;
+}

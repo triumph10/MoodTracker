@@ -25,7 +25,7 @@
         </div>
 
         <div class="login">
-          <button>Login</button>
+          <button type="button" onclick="location.href='login.html'">Login</button>
         </div>
     </div>
   </header>
@@ -73,17 +73,57 @@
       
    <div class="main3">
 
-       <div class="box1">
-        <a href="moodtracker.html" id="text1">MoodTracker</h1>
-        <div id="arrow"></div>
+       <div class="box1" onclick="location.href='moodtracker.html'">
+          <h4>Moodtracker</h4>
        </div>
 
-       <div class="box2">
-        <a href="#" id="text2">MoodGraph</a>
+       <div class="box2" onclick="location.href='#'">
+          <h4>MoodGraph</h4>
        </div>
-   </div>
 
+    </div>
+
+    <div class="main4">
+
+      <div class="box3" onclick="redirectToGradio_ui()">
+        <h4>Chatbot</h4>
+       </div>
+        
+       <div class="box4" onclick="location.href='#'">
+        <h4>Self-Reflection</h4>
+       </div>
+
+    </div>
+
+
+<!-- **************************footer******************************** -->
+
+<div class="footer">
+  <div class="left">
+    <div class="image">
+      <img src="images/logof.png" alt="logo" class="top-logo">
+    </div>
+
+    <div class="text">
+      <h6>At moodtracker, we track your mood, help you to make it better, keep your mental health clean.#BeBetterBeStronger</h6>
+    </div>
+  </div>
+ 
+
+  <div class="content">
+
+  </div>
+
+</div>
     
     
+<script>
+  function redirectToGradio_ui() {
+      // URL where your Gradio app is hosted
+      const gradioUrl = 'http://localhost:7860'; 
+      window.location.href = gradioUrl;
+  }
+</script>
+
 </body>
 </html>
