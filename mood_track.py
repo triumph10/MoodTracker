@@ -16,7 +16,7 @@ def clean_text(text):
     text = re.sub(r'@[\w]*', '', text)  # Remove mentions
     text = re.sub('[^a-zA-Z#]', ' ', text)  # Remove non-alphabet characters
   #  text = ' '.join([w for w in text.split() if len(w) > 3])  # Remove short words
-    text = text.lower()  # Convert to lowercase
+    text = text.lower()  # convert to lowercase
     lemmatizer = WordNetLemmatizer()
     text = ' '.join([lemmatizer.lemmatize(word) for word in text.split()])  # Lemmatize words
     return text
