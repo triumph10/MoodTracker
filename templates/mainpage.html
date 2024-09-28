@@ -74,7 +74,7 @@
       
    <div class="main3">
 
-       <div class="box1" onclick="window.location.href='{{ url_for('moodtracker') }}'">
+      <div class="box1" onclick="openMoodTracker()">
           <h4>Moodtracker</h4>
        </div>
 
@@ -132,6 +132,9 @@
   function redirectToChatbot() {
             window.location.href = '/chatbot_page';  // Redirect to the chatbot_page route
         }
+  function openMoodTracker() {
+    window.location.href = '{{ url_for("moodtracker") }}';
+  }
 </script>
 
 </body>

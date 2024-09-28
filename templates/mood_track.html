@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emotion Detection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            color: #333;
+            text-align: center;
+            padding: 20px;
+        }
+        .input-box {
+            margin: 20px auto;
+            padding: 20px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            width: 50%;
+            background-color: #fff;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .recommendation-box {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+            margin: 20px auto;
+            width: 50%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Track Your mOOd</h1>
+    <div class="input-box">
+        <form id="classifyForm">
+            <label for="text_input">Enter a text:</label><br>
+            <textarea id="text_input" name="text_input" placeholder="Enter your text here"></textarea><br><br>
+            <button type="submit">Classify Emotion</button>
+        </form>
+        <div id="response" style="margin-top: 20px;"></div>
+    </div>
+
+    <!-- JavaScript to handle form submission asynchronously -->
+    <script>
+        document.getElementById('classifyForm').onsubmit = function (e) {
+            e.preventDefault();  // Prevent the traditional form submission
+
+            const inputText = document.querySelector('textarea[name="text_input"]').value;
+
+            // Make an asynchronous request to the Flask backend
+            fetch('/detect_emotion', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ input_text: inputText }),  // Send the input text as JSON
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Update the page dynamically with the received data
+                const responseDiv = document.getElementById('response');
+                responseDiv.innerHTML = `
+                    <h1>Your Mood: ${data.emotion}</h1>
+                    <div class="recommendation-box">
+                        <h2>Movie Recommendation</h2>
+                        <p>${data.movies}</p>
+                    </div>
+                    <div class="recommendation-box">
+                        <h2>Music Recommendation</h2>
+                        <p>${data.music}</p>
+                    </div>
+                    <div class="recommendation-box">
+                        <h2>Exercise Recommendation</h2>
+                        <p>${data.exercises}</p>
+                    </div>
+                `;
+            })
+            .catch(error => {
+                document.getElementById('response').innerText = 'An error occurred. Please try again.';
+                console.error('Error:', error);
+            });
+        };
+    </script>
+</body>
+</html>
