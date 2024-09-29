@@ -16,7 +16,7 @@ model, tokenizer = load_resources()
 app.secret_key = 'iamironman'
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'ARYA#305#varun'
+app.config['MYSQL_PASSWORD'] = '#22107031#'
 app.config['MYSQL_DB'] = 'emotion_recommendations'
 
 mysql = MySQL(app)
@@ -107,7 +107,8 @@ def logout():
     return redirect(url_for('mainpage'))
 
 
-# Route for Signup Page
+# Route for Signup Page  (Page 3)
+
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     msg = ''
@@ -136,7 +137,8 @@ def signup():
     return render_template('signup.html', msg=msg)
 
 
-# Route for Chatbot
+# Route for Chatbot  Page  (Page 4)
+
 @app.route('/chatbot')
 def chatbot():
     # Path to your Streamlit script
@@ -148,6 +150,44 @@ def chatbot():
     # Redirect to the Streamlit app once it's running
     streamlit_url = "http://localhost:8501"
     return redirect(streamlit_url)
+
+
+# Route for Diary Entry Submission   (Page 5)
+# Route for Diary Entry Submission (Page 5)
+@app.route('/diary_entry', methods=['GET', 'POST'])
+def diary_entry():
+    if 'loggedin' in session:
+        msg = ''
+        if request.method == 'POST':
+            entry_title = request.form['entry_title']
+            entry_date = request.form['entry_date']
+            entry_time = request.form['entry_time']
+            entry_text = request.form['entry_text']
+            
+            # Validate form inputs
+            if not entry_title or not entry_date or not entry_time or not entry_text:
+                msg = 'Please fill out all fields!'
+            else:
+                cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+                cursor.execute(
+                    'INSERT INTO diary_entries (user_id, entry_title, entry_date, entry_time, entry_text) VALUES (%s, %s, %s, %s, %s)',
+                    (session['id'], entry_title, entry_date, entry_time, entry_text))
+                mysql.connection.commit()
+                msg = 'Diary entry added successfully!'
+                return redirect(url_for('diary'))  # Redirect to diary display after adding
+        return render_template('di.html', msg=msg)
+    return redirect(url_for('login'))
+
+
+# Route for displaying diary entries (Page 6)
+@app.route('/diary')
+def diary():
+    if 'loggedin' in session:
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT entry_title, entry_date, entry_time, entry_text FROM diary_entries WHERE user_id = %s ORDER BY entry_date DESC, entry_time DESC', (session['id'],))
+        diary_entries = cursor.fetchall()
+        return render_template('display_diary.html', diary_entries=diary_entries)
+    return redirect(url_for('login'))
 
 
 

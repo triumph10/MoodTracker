@@ -95,7 +95,7 @@
         <h4>Chatbot</h4>
        </div>
         
-       <div class="box4" onclick="location.href='#'">
+       <div class="box4" onclick="open_diary()">
         <h4>Self-Reflection</h4>
        </div>
 
@@ -140,6 +140,14 @@
   function openMoodTracker() {
     window.location.href = '{{ url_for("moodtracker") }}';
   }
+
+  function open_diary() {
+  {% if session.get('loggedin') %}
+    window.location.href = '/diary';
+  {% else %}
+    window.location.href = '/login';
+  {% endif %}
+}
 </script>
 
 </body>
