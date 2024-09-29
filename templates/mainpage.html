@@ -25,9 +25,14 @@
 
         </div>
 
-        <div class="login">
-          <button type="button" onclick="window.location.href='{{ url_for('login') }}'">Login</button>
-        </div>
+        
+          {% if session.get('loggedin') %}
+              <span class="username">Welcome, {{ username }}!</span>
+              <button type="button" onclick="window.location.href='{{ url_for('logout') }}'">Logout</button>
+          {% else %}
+              <button type="button" onclick="window.location.href='{{ url_for('login') }}'">Login</button>
+          {% endif %}
+        
     </div>
   </header>
 

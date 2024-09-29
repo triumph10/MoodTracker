@@ -5,6 +5,7 @@ import re
 import subprocess  # To start Streamlit programmatically
 import os  # For working with file paths
 from mood_track import load_resources, detect_emotion
+from datetime import datetime
 
 
 app = Flask(__name__)
@@ -25,7 +26,10 @@ mysql = MySQL(app)
 @app.route('/')
 @app.route('/mainpage')
 def mainpage():
-    return render_template('mainpage.html')
+    if 'loggedin' in session:
+        return render_template('mainpage.html', username=session['username'])
+    else:
+        return render_template('mainpage.html')
 
 
 @app.route('/detect_emotion', methods=['GET', 'POST'])
@@ -39,6 +43,14 @@ def moodtracker():
 
         # Fetch recommendations from the database
         cursor = mysql.connection.cursor()
+
+        timestamp = datetime.now()
+        
+        id = session['id']  # Get the user ID from the session
+        cursor.execute("UPDATE accounts SET mood = %s WHERE id = %s", (emotion, id))
+        cursor.execute("INSERT INTO emotion_log(user_id,emotion,timestamp) VALUES (%s , %s, %s)",(id, emotion,timestamp))
+        mysql.connection.commit()
+
         cursor.execute("SELECT title FROM movies WHERE emotion = %s ORDER BY RAND() LIMIT 1", (emotion,))
         movie_recommendation = cursor.fetchone()
 
@@ -78,13 +90,21 @@ def login():
         if account:
             session['loggedin'] = True
             session['id'] = account['id']
-            session['username'] = account['email']  # Store email in session
+            session['username'] = account['username']  # Store email in session
+            print("Login successful, redirecting to mainpage...")
             return redirect(url_for('mainpage'))
         else:
             msg = 'Incorrect email / password!'
     return render_template('login.html', msg=msg)
 
-
+@app.route('/logout')
+def logout():
+    # Remove session data, this will log the user out
+    session.pop('loggedin', None)
+    session.pop('id', None)
+    session.pop('username', None)
+    # Redirect to the login page
+    return redirect(url_for('mainpage'))
 
 
 # Route for Signup Page
