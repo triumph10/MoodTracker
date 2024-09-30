@@ -16,7 +16,7 @@ model, tokenizer = load_resources()
 app.secret_key = 'iamironman'
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = '#22107031#'
+app.config['MYSQL_PASSWORD'] = 'PHW#84#jeor'
 app.config['MYSQL_DB'] = 'emotion_recommendations'
 
 mysql = MySQL(app)
@@ -189,7 +189,23 @@ def diary():
         return render_template('display_diary.html', diary_entries=diary_entries)
     return redirect(url_for('login'))
 
+@app.route('/moodgraph')
+def moodgraph():
+    if 'loggedin' in session:
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT emotion, timestamp FROM emotion_log WHERE user_id = %s ORDER BY timestamp DESC', (session['id'],))
+        mood_data = cursor.fetchall()
+
+        # Prepare data for chart
+        emotions = [entry['emotion'] for entry in mood_data]
+        timestamps = [entry['timestamp'].strftime("%Y-%m-%d %H:%M:%S") for entry in mood_data]
+
+        return render_template('moodgraph.html', emotions=emotions, timestamps=timestamps)
+    else:
+        return redirect(url_for('login'))
+
 
 
 if __name__ == '__main__':
     app.run(port=5000, debug=True)
+

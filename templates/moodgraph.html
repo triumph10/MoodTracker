@@ -1,0 +1,121 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mood Graph</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h2>Your Mood Graph</h2>
+    <canvas id="moodGraph" width="400" height="200"></canvas>
+
+    <script>
+        const ctx = document.getElementById('moodGraph').getContext('2d');
+    
+        // Check if emotions and timestamps are properly loaded
+        const emotions = {{ emotions | tojson }};
+        const timestamps = {{ timestamps | tojson }};
+        
+        console.log("Emotions:", emotions);
+        console.log("Timestamps:", timestamps);
+    
+        const moodGraph = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: timestamps,  // The time data for x-axis
+                datasets: [{
+                    label: 'Mood Over Time',
+                    data: emotions.map(emotion => {
+                        switch(emotion) {
+                            case 'Joy': return 5;
+                            case 'Neutral': return 3;
+                            case 'Sadness': return 1;
+                            case 'Anger': return 2;
+                            case 'Fear': return 4;
+                            default: return 0;
+                        }
+                    }),  // Map emotions to numeric values
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    fill: false
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            // Show labels for the emotions
+                            callback: function(value, index, values) {
+                                const labels = ['Unknown', 'Sadness', 'Anger', 'Neutral', 'Fear', 'Joy'];
+                                return labels[value];
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+    
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mood Graph</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/moodgraph.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Your Mood Graph</h2>
+        <canvas id="moodGraph" width="400" height="200"></canvas>
+
+        <h2>Average Daily Mood</h2>
+        <div class="chart-container">
+            <div class="emoji-labels">
+                <div class="emoji-smile">😊</div>
+                <div class="emoji-neutral">😐</div>
+                <div class="emoji-sad">😢</div>
+            </div>
+
+            <!-- Monday to Sunday mood bars -->
+            <div class="bar">
+                <div class="mood-neutral"></div>
+                <span>Mon</span>
+            </div>
+            <div class="bar">
+                <div class="mood-neutral"></div>
+                <span>Tue</span>
+            </div>
+            <div class="bar">
+                <div class="mood-neutral"></div>
+                <span>Wed</span>
+            </div>
+            <div class="bar">
+                <div class="mood-sad"></div>
+                <span>Thu</span>
+            </div>
+            <div class="bar">
+                <div class="mood-neutral"></div>
+                <span>Fri</span>
+            </div>
+            <div class="bar">
+                <div class="mood-excellent"></div>
+                <span>Sat</span>
+            </div>
+            <div class="bar">
+                <div class="mood-neutral"></div>
+                <span>Sun</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/moodgraph.js') }}"></script>
+</body>
+</html>
+
