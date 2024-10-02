@@ -16,7 +16,7 @@ model, tokenizer = load_resources()
 app.secret_key = 'iamironman'
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'PHW#84#jeor'
+app.config['MYSQL_PASSWORD'] = 'ARYA#305#varun'
 app.config['MYSQL_DB'] = 'emotion_recommendations'
 
 mysql = MySQL(app)
@@ -51,21 +51,21 @@ def moodtracker():
         cursor.execute("INSERT INTO emotion_log(user_id,emotion,timestamp) VALUES (%s , %s, %s)",(id, emotion,timestamp))
         mysql.connection.commit()
 
-        cursor.execute("SELECT title FROM movies WHERE emotion = %s ORDER BY RAND() LIMIT 1", (emotion,))
-        movie_recommendation = cursor.fetchone()
+        cursor.execute("SELECT title FROM movies WHERE emotion = %s ORDER BY RAND() LIMIT 3", (emotion,))
+        movie_recommendation = cursor.fetchall()
 
-        cursor.execute("SELECT song, artist FROM music WHERE emotion = %s ORDER BY RAND() LIMIT 1", (emotion,))
-        music_recommendation = cursor.fetchone()
+        cursor.execute("SELECT song, artist FROM music WHERE emotion = %s ORDER BY RAND() LIMIT 3", (emotion,))
+        music_recommendation = cursor.fetchall()
 
-        cursor.execute("SELECT activity FROM exercises WHERE emotion = %s ORDER BY RAND() LIMIT 1", (emotion,))
-        exercise_recommendation = cursor.fetchone()
+        cursor.execute("SELECT activity FROM exercises WHERE emotion = %s ORDER BY RAND() LIMIT 3", (emotion,))
+        exercise_recommendation = cursor.fetchall()
 
         # Prepare the recommendations
         recommendations = {
             'emotion': emotion,
-            'movies': movie_recommendation[0] if movie_recommendation else 'No movie found',
-            'music': f"{music_recommendation[0]} by {music_recommendation[1]}" if music_recommendation else 'No music found',
-            'exercises': exercise_recommendation[0] if exercise_recommendation else 'No exercise found'
+            'movies': movie_recommendation if movie_recommendation else ['No movie found'],
+            'music': music_recommendation if music_recommendation else ['No music found'],
+            'exercises': exercise_recommendation if exercise_recommendation else ['No exercise found']
         }
 
         # Return the recommendations as JSON

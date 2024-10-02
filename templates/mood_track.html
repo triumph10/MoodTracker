@@ -83,27 +83,38 @@
             .then(data => {
                 // Update the page dynamically with the received data
                 const responseDiv = document.getElementById('response');
-                responseDiv.innerHTML = `
-                    <h1>Your Mood: ${data.emotion}</h1>
-                    <div class="recommendation-box">
-                        <h2>Movie Recommendation</h2>
-                        <p>${data.movies}</p>
-                    </div>
-                    <div class="recommendation-box">
-                        <h2>Music Recommendation</h2>
-                        <p>${data.music}</p>
-                    </div>
-                    <div class="recommendation-box">
-                        <h2>Exercise Recommendation</h2>
-                        <p>${data.exercises}</p>
-                    </div>
-                `;
+                responseDiv.innerHTML = `<h1>Your Mood: ${data.emotion}</h1>`;
+
+                // Display movie recommendations
+                let moviesHTML = '<h2>Movie Recommendations</h2><ul>';
+                data.movies.forEach(movie => {
+                    moviesHTML += `<li>${movie}</li>`;
+                });
+                moviesHTML += '</ul>';
+                responseDiv.innerHTML += `<div class="recommendation-box">${moviesHTML}</div>`;
+
+                // Display music recommendations
+                let musicHTML = '<h2>Music Recommendations</h2><ul>';
+                data.music.forEach(song => {
+                    musicHTML += `<li>${song}</li>`;
+                });
+                musicHTML += '</ul>';
+                responseDiv.innerHTML += `<div class="recommendation-box">${musicHTML}</div>`;
+
+                // Display exercise recommendations
+                let exercisesHTML = '<h2>Exercise Recommendations</h2><ul>';
+                data.exercises.forEach(exercise => {
+                    exercisesHTML += `<li>${exercise}</li>`;
+                });
+                exercisesHTML += '</ul>';
+                responseDiv.innerHTML += `<div class="recommendation-box">${exercisesHTML}</div>`;
             })
             .catch(error => {
                 document.getElementById('response').innerText = 'An error occurred. Please try again.';
                 console.error('Error:', error);
             });
         };
+
     </script>
 </body>
 </html>

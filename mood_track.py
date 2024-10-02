@@ -44,7 +44,7 @@ def detect_emotion(text, model, tokenizer, sequence_length=70):
     predicted_label = np.argmax(prediction, axis=-1)
     
     # Define the label mapping based on your training labels
-    labels = {0: "Anger", 1: "Fear", 2: "Joy", 3: "Neutral", 4: "Sadness"}
+    labels = {0: "Anger", 1: "Fear", 2: "Joy", 3: "Neutral", 4: "Sad"}
     return labels[predicted_label[0]], prediction
      
     
