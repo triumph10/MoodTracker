@@ -1,13 +1,15 @@
 import streamlit as st
 from backend import handle_gemini_response, initialize_model
 
+
+
 # Initialize session state for chatbot
 if 'chatbot' not in st.session_state:
     st.session_state.chatbot = []
 
 model = initialize_model()  # Make sure this function works properly
 
-st.title("Chatbot Interface")
+st.title("Chatbot")
 
 # User input
 user_input = st.text_input("You:", "")

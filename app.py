@@ -16,7 +16,7 @@ model, tokenizer = load_resources()
 app.secret_key = 'iamironman'
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'ARYA#305#varun'
+app.config['MYSQL_PASSWORD'] = 'root'
 app.config['MYSQL_DB'] = 'emotion_recommendations'
 
 mysql = MySQL(app)

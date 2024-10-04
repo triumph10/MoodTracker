@@ -3,19 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Emotion Detection</title>
+    <title>MoodTracker</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f8ff;
-            color: #333;
+            background-color: #232946;
+            color: white;
             text-align: center;
             padding: 20px;
         }
+        
+        h1{
+            color: white;
+        }
+
         .input-box {
             margin: 20px auto;
             padding: 20px;
-            border: 2px solid #ddd;
+            border: 2px solid black;
             border-radius: 10px;
             width: 50%;
             background-color: #fff;
@@ -27,11 +32,11 @@
             padding: 10px;
             font-size: 16px;
             border-radius: 5px;
-            border: 1px solid #ccc;
+            border: 2px solid black;
             box-sizing: border-box;
         }
         button {
-            background-color: #4caf50;
+            background-color: #596499;
             color: white;
             padding: 10px 20px;
             border: none;
@@ -40,7 +45,7 @@
             cursor: pointer;
         }
         button:hover {
-            background-color: #45a049;
+            background-color: #596499;
         }
         .recommendation-box {
             background-color: #fff;
@@ -58,8 +63,8 @@
     <div class="input-box">
         <form id="classifyForm">
             <label for="text_input">Enter a text:</label><br>
-            <textarea id="text_input" name="text_input" placeholder="Enter your text here"></textarea><br><br>
-            <button type="submit">Classify Emotion</button>
+            <textarea id="text_input" name="text_input" placeholder="Add your mood description..."></textarea><br><br>
+            <button type="submit">Add</button>
         </form>
         <div id="response" style="margin-top: 20px;"></div>
     </div>
