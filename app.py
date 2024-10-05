@@ -16,7 +16,7 @@ model, tokenizer = load_resources()
 app.secret_key = 'iamironman'
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'root'
+app.config['MYSQL_PASSWORD'] = '#22107031#'
 app.config['MYSQL_DB'] = 'emotion_recommendations'
 
 mysql = MySQL(app)
@@ -196,13 +196,24 @@ def moodgraph():
         cursor.execute('SELECT emotion, timestamp FROM emotion_log WHERE user_id = %s ORDER BY timestamp DESC', (session['id'],))
         mood_data = cursor.fetchall()
 
+        print("Mood Data:", mood_data)  # Debug print statement
+
+        # Check if mood_data is not empty
+        if not mood_data:
+            return "No mood data found."
+
         # Prepare data for chart
-        emotions = [entry['emotion'] for entry in mood_data]
-        timestamps = [entry['timestamp'].strftime("%Y-%m-%d %H:%M:%S") for entry in mood_data]
+        emotions = [entry['emotion'] for entry in mood_data][::-1]  # Reverse the emotions
+        timestamps = [entry['timestamp'].strftime("%Y-%m-%d %H:%M:%S") for entry in mood_data][::-1]  # Reverse the timestamps
+
+        print("Emotions:", emotions)  # Debug print statement
+        print("Timestamps:", timestamps)  # Debug print statement
 
         return render_template('moodgraph.html', emotions=emotions, timestamps=timestamps)
     else:
         return redirect(url_for('login'))
+
+
 
 
 

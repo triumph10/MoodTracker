@@ -1,11 +1,18 @@
+// moodgraph.js
+
 // Get the canvas contexts for both graphs
 const barCtx = document.getElementById('moodBarGraph').getContext('2d');
 const lineCtx = document.getElementById('moodLineGraph').getContext('2d');
 
-// Sample emotions and timestamps
-const emotions = ['Joy', 'Neutral', 'Neutral', 'Sadness', 'Neutral', 'Joy', 'Neutral'];
-const timestamps = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+// Sample emotions and timestamps from Flask
+const emotions = JSON.parse(document.getElementById('emotions').textContent);
+const timestamps = JSON.parse(document.getElementById('timestamps').textContent);
 
+
+emotions.reverse();
+timestamps.reverse();
+
+// Log the emotions and timestamps to the console
 console.log("Emotions:", emotions);
 console.log("Timestamps:", timestamps);
 
